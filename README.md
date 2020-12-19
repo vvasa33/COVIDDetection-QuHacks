@@ -1,2 +1,0 @@
-# CrimeDetection-QuHacks
-For QuHacks
