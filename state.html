@@ -88,10 +88,10 @@ body, html {
   <div class="w3-row">
     <div class="w3-center">
 <div class="selectOption" id="selector">
-<div>
+<!-- <div>
   <center><p>Enter a date (YYYYMMDD)</p></center>
   <input type="text" id = "dateSelect"/>
-</div>
+</div> -->
 <select id="state">
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
@@ -146,7 +146,7 @@ body, html {
 	<option value="WY">Wyoming</option>
 
 </select>
-<select>
+<!-- <select id="keySelect">
   <option value="positive">positive</option>
   <option value="negative">negative</option>
   <option value="hospitalizedCurrently">hospitalizedCurrently</option>
@@ -159,42 +159,25 @@ body, html {
   <option value="death">death</option>
   <option value="hospitalized">hospitalized</option>
   <option value="totalTestResults">totalTestResults</option>
-</select>
+</select> -->
 <center><button id = "infoSelector2" onclick="load2();" class="button button4">Go!</button></center>
 </div>
 <center><div class="mypanel">
-  <h3 id="data"></h3>
+  <p id="data"></p>
 </div></center>
 <script>
-function load2() {
-  requestURL = 'https://api.covidtracking.com/v1/states/'+(document.getElementById("state").value.toLowerCase())+'/current.json';
+  function load2() {
+  //get the url of the json file from the api
+  let requestURL = 'https://api.covidtracking.com/v1/states/'+(document.getElementById("state").value.toLowerCase())+'/info.json'; 
+  console.log(requestURL);
+  //creat a new request
   let request = new XMLHttpRequest();
   request.open('GET', requestURL);
   request.responseType = 'json';
   request.send();
-  let testdate = document.getElementById("").value;
-  
   request.onload = function() {
     data = request.response;
-    let key = document.getElementById("keySelect").value;
-    
-    for (let value of data) {
-      if (value.date == testdate) {
-        if (key == "positive" or key == "negative") {
-        // console.log("On "+ testdate + " there are " + value[key] + key + " cases");
-          document.getElementById("mypanel").innerHTML = "On "+ testdate + " there are " + value[key] + " " + key + "cases"; 
-          //example: On 20201206 there are 121 positive cases
-          //example: On 20201123 there are 129 deaths
-          break;
-        } else {
-          document.getElementById("mypanel").innerHTML = "";
-          break;
-        }
-      }
-    } else {
-      document.getElementById("mypanel").innerHTML = "Date not available";
-    }
+    document.getElementById("data").innerHTML = data.notes;
   }
-}
 }
 </script>

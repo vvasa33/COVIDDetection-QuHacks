@@ -152,8 +152,10 @@ body, html {
     data = request.response;
     let key = document.getElementById("keySelect").value;
     console.log(key);
+    flag = true;
     for (let value of data) {
       if (value.date == testdate) {
+        flag = false;
         console.log(Object.keys(value));
         if (key == "positive" || key == "negative") {
           // document.getElementById("data").innerHTML = "On "+ testdate + " there are " + value[key] + " " + key + " cases";
@@ -166,6 +168,9 @@ body, html {
         }
         break;
       }
+    }
+    if (flag) {
+      document.getElementById("data").innerHTML = "Data not available for this data!";
     }
   }
 }
